@@ -64,8 +64,3 @@
             - name: csdgroup
               value: "{{ csdgroup }}"
 
-
-#        type: CICSBundle
-#        resource:
-
-
