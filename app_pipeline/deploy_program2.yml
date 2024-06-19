@@ -1,0 +1,27 @@
+# (c) Copyright IBM Corp. 2023
+# Apache License, Version 2.0 (see https://opensource.org/licenses/Apache-2.0)
+---
+- name: Compile COBOL application
+  hosts: all
+  gather_facts: false
+  environment: "{{ environment_vars }}"
+
+  vars:
+    program: "{{ member_name }}"
+
+  module_defaults:
+    group/ibm.ibm_zos_cics.cmci_group:
+      cmci_host: "{{ ansible_host }}"
+      cmci_port: "{{ cmci_port }}"
+      context: "{{ applid }}"
+      scheme: http
+
+  tasks:
+    - name: NEWCOPY the program in CICS
+      delegate_to: localhost
+      ibm.ibm_zos_cics.cmci_action:
+        action_name: NEWCOPY
+        type: CICSProgram
+        resources:
+          filter:
+            program: "{{ program }}"

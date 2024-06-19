@@ -2,13 +2,13 @@
 # Apache License, Version 2.0 (see https://opensource.org/licenses/Apache-2.0)
 ---
 - name: Create the program and transaction needed
-  hosts: all 
+  hosts: all
   gather_facts: false
   environment: "{{ environment_vars }}"
-  
-  vars: 
+
+  vars:
     program: "{{ member_name }}"
-    transaction: "HITR"
+    transaction: "ENAM"
     csdgroup: "LHEGRP"
 
   module_defaults:
@@ -19,7 +19,8 @@
       scheme: http
 
   tasks:
-    - name: Create the CICS program 
+    - name: Create the CICS program
+      delegate_to: localhost
       ibm.ibm_zos_cics.cmci_create:
         type: "CICSDefinitionProgram"
         attributes:
@@ -28,7 +29,8 @@
         create_parameters:
           - name: "csd"
 
-    - name: Create the CICS transaction 
+    - name: Create the CICS transaction
+      delegate_to: localhost
       ibm.ibm_zos_cics.cmci_create:
         type: "CICSDefinitionTransaction"
         attributes:
@@ -38,7 +40,8 @@
         create_parameters:
           - name: "csd"
 
-    - name: Install the program 
+    - name: Install the program
+      delegate_to: localhost
       ibm.ibm_zos_cics.cmci_action:
         type: "CICSDefinitionProgram"
         action_name: CSDINSTALL
@@ -49,7 +52,8 @@
             - name: csdgroup
               value: "{{ csdgroup }}"
 
-    - name: Install the transaction 
+    - name: Install the transaction
+      delegate_to: localhost
       ibm.ibm_zos_cics.cmci_action:
         type: "CICSDefinitionTransaction"
         action_name: CSDINSTALL

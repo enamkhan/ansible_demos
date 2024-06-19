@@ -3,7 +3,7 @@
         ENVIRONMENT DIVISION.
         DATA DIVISION.
         WORKING-STORAGE SECTION.
-        01 MSG  PIC X(16) VALUE "Hello GSE UK!".
+        01 MSG  PIC X(20) VALUE "Hello CICS Insight!.
         LINKAGE SECTION.
         PROCEDURE DIVISION.
             DISPLAY "Hello".
